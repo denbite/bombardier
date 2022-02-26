@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 connections=250
 timer=300
 urls=()
