@@ -42,11 +42,17 @@ chmod +x script.sh
 
 ```shell
 apt install -y unzip
+```
 
+```shell
 wget https://codeload.github.com/capcatd/bombardier/zip/refs/heads/main >> main.zip && unzip main && cd bombardier-main
+```
 
+```shell
 chmod +x script.sh
+```
 
+```shell
 ./script.sh
 ```
 
