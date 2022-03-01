@@ -27,6 +27,19 @@ structure.mil.ru
 www.cloudflare.com
 cloudflare.com
 ```
+
+## Download
+If you have git installed
+```shell
+git clone github.com/capcatd/bombardier
+cd bombardier
+```
+
+If you DON'T have git installed
+```shell
+wget https://codeload.github.com/capcatd/bombardier/zip/refs/heads/main >> main.zip && unzip -o main && cd bombardier-main
+```
+
 ## Usage
 
 Using default domains file (domains.txt)
@@ -75,7 +88,7 @@ apt install -y unzip
 ```
 
 ```shell
-wget https://codeload.github.com/capcatd/bombardier/zip/refs/heads/main >> main.zip && unzip main && cd bombardier-main
+wget https://codeload.github.com/capcatd/bombardier/zip/refs/heads/main >> main.zip && unzip -o main && cd bombardier-main
 ```
 
 ```shell
