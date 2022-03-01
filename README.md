@@ -6,11 +6,41 @@ This script parses domains, receive their IP in DNS and then run multiple Docker
 
 https://docs.docker.com/engine/install/ubuntu/
 
+## Domains list to be attacked (IMPORTANT!)
+
+The source file must contain only domains, one per row.
+[What is domain?](https://www.cloudflare.com/learning/dns/glossary/what-is-a-domain-name/)
+
+#### Wrong domain examples:
+
+structure.mil.ru/structure/uc/info.htm
+https://structure.mil.ru
+https://structure.mil.ru/structure
+https://structure.mil.ru/
+structure.mil.ru/
+https://www.cloudflare.com/learning/
+https://www.cloudflare.com
+
+#### Correct domain examples:
+
+structure.mil.ru
+www.cloudflare.com
+cloudflare.com
+
 ## Usage
+
+Using default domains file (domains.txt)
 
 ```shell
 chmod +x script.sh
 ./script.sh
+```
+
+Using your own domains file (e.g. my_domains_file.txt)
+
+```shell
+chmod +x script.sh
+./script.sh my_domains_file.txt
 ```
 
 ### INSERT DOMAINS WITHOUT PROTOCOL (e.g. google.com instead of https://google.com)

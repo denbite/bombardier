@@ -3,7 +3,7 @@ source libs/*.sh
 
 connections=250
 timer=1800
-domains_filename=domains.txt
+domains_filename="${1:-domains.txt}"
 ips_filename=ips.txt
 
 echo "Pulling Docker image"
@@ -16,6 +16,8 @@ then
 	echo "Something went wrong while getting Docker image"
 	exit 1
 fi
+
+echo "Domains file - $domains_filename"
 
 # generate ips file
 parse_dns_records_for_domains $domains_filename $ips_filename
