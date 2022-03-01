@@ -12,7 +12,7 @@ The source file must contain only domains, one per row.
 [What is domain?](https://www.cloudflare.com/learning/dns/glossary/what-is-a-domain-name/)
 
 #### Wrong domain examples:
-
+```
 structure.mil.ru/structure/uc/info.htm
 https://structure.mil.ru
 https://structure.mil.ru/structure
@@ -20,13 +20,13 @@ https://structure.mil.ru/
 structure.mil.ru/
 https://www.cloudflare.com/learning/
 https://www.cloudflare.com
-
+```
 #### Correct domain examples:
-
+```
 structure.mil.ru
 www.cloudflare.com
 cloudflare.com
-
+```
 ## Usage
 
 Using default domains file (domains.txt)
