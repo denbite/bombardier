@@ -6,6 +6,29 @@ duration=1800
 domains_filename=domains.txt
 ips_filename=ips.txt
 
+function exit_successful {
+	text=$1
+
+	if ! [ -z text ]
+	then
+		echo_green "$text"
+	fi
+
+	exit 0
+}
+
+function exit_with_error {
+	text=$1
+	error_code=${2:-1}
+
+	if ! [ -z text ]
+	then
+		echo_red "$text"
+	fi
+
+	exit $error_code
+}
+
 function parse_args {
 	while [ : ]
 	do
@@ -34,14 +57,12 @@ function parse_args {
 				shift 2
 				;;
 			-h | --help)
-				echo "Usage: $(basename $0) [-d SECONDS] [-c CONNECTIONS] [-df FILENAME]"
+				echo_default "Usage: $(basename $0) [-d SECONDS] [-c CONNECTIONS] [-df FILENAME]"
 				shift
 				exit 0
 				;;
 			*)
-				echo "Invalid arg '$OPT' given"
-				shift
-				exit 1
+				exit_with_error "Invalid2 arg '$OPT' given"
 				;;
 		esac
 	done
@@ -52,13 +73,13 @@ function validate_args {
 
 	if ! { [[ $duration =~ $re_isanum ]] && [[ $duration -ge 1 ]]; }
 	then
-		echo "Duration should be a positive number greater than 0"
+		echo_red "Duration should be a positive number greater than 0"
 		exit 1
 	fi
 
 	if ! { [[ $connections =~ $re_isanum ]] && [[ $connections -ge 1 ]]; }
 	then
-		echo "Connections should be a positive number greater than 0"
+		echo_red "Connections should be a positive number greater than 0"
 		exit 1
 	fi
 }
@@ -68,18 +89,18 @@ function main {
 
 	validate_args
 
-	echo "Pulling Docker image"
+	echo_default "Pulling Docker image"
 
 	# validate docker is installed
 	docker pull alpine/bombardier
 
 	if [ $? -ne 0 ]
 	then
-		echo "Something went wrong while getting Docker image"
+		echo_red "Something went wrong while getting Docker image"
 		exit 1
 	fi
 
-	echo "Domains file - $domains_filename"
+	echo_default "Domains file - $domains_filename"
 
 	# generate ips file
 	parse_dns_records_for_domains $domains_filename $ips_filename
@@ -97,14 +118,13 @@ function main {
 			continue
 		fi
 
-		echo "Started bombarding $url with $connections connections for $duration seconds"
+		echo_default "Started bombarding $url with $connections connections for $duration seconds"
 		((bombarding_count++))
 	}
 
 	read_file $ips_filename cb
 
-	echo "Successfully started bombarding $bombarding_count sites!"
-	exit 0
+	exit_successful "Successfully started bombarding $bombarding_count sites!"
 }
 
 main $@
