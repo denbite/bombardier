@@ -1,33 +1,12 @@
 #!/bin/bash
-source libs/*.sh
+source libs/file.sh
+source libs/exit.sh
+source libs/echo.sh
 
 connections=250
 duration=1800
 domains_filename=domains.txt
 ips_filename=ips.txt
-
-function exit_successful {
-	text=$1
-
-	if ! [ -z text ]
-	then
-		echo_green "$text"
-	fi
-
-	exit 0
-}
-
-function exit_with_error {
-	text=$1
-	error_code=${2:-1}
-
-	if ! [ -z text ]
-	then
-		echo_red "$text"
-	fi
-
-	exit $error_code
-}
 
 function parse_args {
 	while [ : ]
@@ -62,7 +41,7 @@ function parse_args {
 				exit 0
 				;;
 			*)
-				exit_with_error "Invalid2 arg '$OPT' given"
+				exit_with_error "Invalid arg '$OPT' given"
 				;;
 		esac
 	done
@@ -73,14 +52,12 @@ function validate_args {
 
 	if ! { [[ $duration =~ $re_isanum ]] && [[ $duration -ge 1 ]]; }
 	then
-		echo_red "Duration should be a positive number greater than 0"
-		exit 1
+		exit_with_error "Duration should be a positive number greater than 0"
 	fi
 
 	if ! { [[ $connections =~ $re_isanum ]] && [[ $connections -ge 1 ]]; }
 	then
-		echo_red "Connections should be a positive number greater than 0"
-		exit 1
+		exit_with_error "Connections should be a positive number greater than 0"
 	fi
 }
 
@@ -96,8 +73,7 @@ function main {
 
 	if [ $? -ne 0 ]
 	then
-		echo_red "Something went wrong while getting Docker image"
-		exit 1
+		exit_with_error "Something went wrong while getting Docker image"
 	fi
 
 	echo_default "Domains file - $domains_filename"
