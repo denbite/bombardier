@@ -1,5 +1,5 @@
 #!/bin/bash
-source echo.sh
+source libs/echo.sh
 
 function exit_successful {
 	text=$1

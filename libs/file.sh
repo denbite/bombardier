@@ -1,6 +1,6 @@
 #!/bin/bash
-source echo.sh
-source exit.sh
+source libs/echo.sh
+source libs/exit.sh
 
 function __internal_read_file {
     filename=$1
