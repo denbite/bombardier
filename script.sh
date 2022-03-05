@@ -3,7 +3,7 @@ source libs/file.sh
 source libs/exit.sh
 source libs/echo.sh
 
-proto=https://
+proto=https
 connections=250
 duration=1800
 domains_filename=domains.txt
